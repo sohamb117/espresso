@@ -1,35 +1,19 @@
-from blake3 import blake3
-import json
-import time
+from blockchain import *
 
-class Blockchain(object):
-	def __init__(self):
-		self.chain = []
-		self.current_transactions = []
-	
-	def new_block(self):
-		pass
-	
-	def new_transaction(self):
-		pass
-    
-	@staticmethod
-	def hash(block):
-		pass
+espresso = Blockchain();
 
-	@property
-	def last_block(self):
-		pass
+espresso.add_block(espresso.generate_block())
+espresso.add_block(espresso.generate_block())
+espresso.add_block(espresso.generate_block())
+espresso.add_block(espresso.generate_block())
+espresso.add_block(espresso.generate_block())
 
-class Block:
-	def __init(self, index, timestamp, data, previousHash = ''):
-		self.index = index;
-		self.timestamp = timestamp;
-		self.data = data;
-		self.previousHash = previousHash;
-		self.hash = self.calculateHash();
-	
-	def calculateHash(self):
-		hash = str(self.index + self.previousHash + self.timestamp + self.data + json.dumps(self.data))
-		return(blake3(hash).digest())
-		
+for i in espresso.chain:
+	print("Index:", i.index)
+	print("Time:",i.timestamp)
+	print("Data:",i.data)
+	print("Previous Hash:",i.previous_hash)
+	print("Hash:",i.hash)
+	print()
+
+print(espresso.check_validity())
