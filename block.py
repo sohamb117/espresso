@@ -2,13 +2,16 @@ from blake3 import blake3
 import json
 
 class Block:
-	def __init__(self, index, timestamp, data, previous_hash=""):
+	def __init__(self, index, timestamp, previous_hash=""):
 		self.index = index
 		self.timestamp = timestamp
-		self.data = data
+		self.data = []
 		self.previous_hash = previous_hash
 		self.hash = ""
 	
+	def add_transaction(self, sender, recipient, amount, memo=""):
+		self.data.append({"sender": sender, "recipient": recipient, "amount": amount, "memo": memo})
+
 	def calculate_hash(self):
-		hash = bytes(str(self.index) + str(self.timestamp) + str(self.previous_hash) + self.data, 'utf-8')
-		return(blake3(hash).digest())
+		hash = bytes(str(self.index) + str(self.timestamp) + str(self.previous_hash) + str(self.data), 'utf-8')
+		return(blake3(hash).hexdigest())

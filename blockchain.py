@@ -8,18 +8,19 @@ class Blockchain(object):
 	
 	def generate_block(self):
 		return Block(
-			len(self.chain)-1,
+			len(self.chain),
 			time.time(),
-			"",
 			self.last_block().hash
 		)
 
 	def add_block(self, new_block):
+		new_block.index = len(self.chain)
 		new_block.hash = new_block.calculate_hash()
 		self.chain.append(new_block)
 
 	def genesis_block(self):
-		gen_block = Block(0, time.time(), "Genesis Block", "0",)
+		gen_block = Block(0, time.time(), "0")
+		gen_block.add_transaction("Genesis", "Genesis", "0", "Genesis Block")
 		gen_block.hash = gen_block.calculate_hash()
 		return(gen_block)
 
