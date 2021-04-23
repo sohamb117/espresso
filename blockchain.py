@@ -15,8 +15,13 @@ class Blockchain(object):
 
 	def add_block(self, new_block):
 		new_block.index = len(self.chain)
+		new_block.data = self.current_transactions
 		new_block.hash = new_block.calculate_hash()
 		self.chain.append(new_block)
+		self.current_transactions = []
+
+	def add_data(self, data):
+		self.current_transactions.append(json.loads(data))
 
 	def genesis_block(self):
 		gen_block = Block(0, time.time(), "0")

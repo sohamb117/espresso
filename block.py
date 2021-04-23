@@ -11,6 +11,7 @@ class Block:
 	
 	def add_transaction(self, sender, recipient, amount, memo=""):
 		self.data.append({"sender": sender, "recipient": recipient, "amount": amount, "memo": memo})
+		self.hash = self.calculate_hash()
 
 	def calculate_hash(self):
 		hash = bytes(str(self.index) + str(self.timestamp) + str(self.previous_hash) + str(self.data), 'utf-8')
