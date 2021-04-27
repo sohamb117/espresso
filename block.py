@@ -1,5 +1,4 @@
 from blake3 import blake3
-import json
 
 class Block:
 	def __init__(self, index, timestamp, previous_hash=""):
@@ -8,7 +7,7 @@ class Block:
 		self.data = []
 		self.previous_hash = previous_hash
 		self.hash = ""
-	
+
 	def add_transaction(self, sender, recipient, amount, memo=""):
 		self.data.append({"sender": sender, "recipient": recipient, "amount": amount, "memo": memo})
 		self.hash = self.calculate_hash()

@@ -2,3 +2,8 @@ poetry.lock
 pyproject.toml
 __pycache__/
 .replit
+liboqs/
+liboqs-python/
+__init__.py
+oqs.py
+rand.py
