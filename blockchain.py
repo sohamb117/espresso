@@ -22,6 +22,7 @@ class Blockchain(object):
 		new_block.hash = new_block.calculate_hash()
 		self.chain.append(new_block)
 		self.current_data = []
+		return(new_block.__dict__)
 
 	def add_data(self, data):
 		self.current_data.append(data)

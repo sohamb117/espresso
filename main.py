@@ -1,27 +1,26 @@
 from blockchain import *
+from data import *
 import json
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, abort
 from shortuuid import uuid
-
 
 node_uuid = uuid()
 app = Flask("Node-"+node_uuid)
 
 espresso = Blockchain();
 
-espresso.add_block(espresso.generate_block())
-espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
-espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
-espresso.add_block(espresso.generate_block())
-espresso.add_block(espresso.generate_block())
-espresso.add_block(espresso.generate_block())
-espresso.add_block(espresso.generate_block())
+#espresso.add_block(espresso.generate_block())
+#espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
+#espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
+#espresso.add_block(espresso.generate_block())
+#espresso.add_block(espresso.generate_block())
+#espresso.add_block(espresso.generate_block())
+#espresso.add_block(espresso.generate_block())
 
 @app.route("/mine", methods=["GET"])
 def mine():
-	espresso.add_block()
-	return("Generated block")
-	
+	block = espresso.add_block()
+	return(block)
 
 @app.route("/chaindump", methods=['GET'])
 def chaindump():
@@ -33,30 +32,22 @@ def chain():
 
 @app.route("/data", methods=['POST'])
 def add_data():
-	try:
-		request.json["key"]
-		request.json["hash"]
-		espresso.add_data(request.json)
-	except:
-		return(Response(jsonify("Please provide a key and hash"), 403))
+	data = Data(request.json, False)
+	if(data.data == None):
+		abort(403)
 
-	return(request.json)
+	espresso.add_data(data.getJson())
+	return(data.__dict__)
 		
 
 @app.route("/transact", methods=['POST'])
 def add_transaction():
-	try:
-		memo = request.json["memo"]
-	except:
-		memo = ""
-	transaction = {
-		"sender": request.json["sender"],
-		"recipient": request.json["recipient"],
-		"amount": request.json["amount"],
-		"memo": memo
-		}
-	espresso.add_data(transaction)
-	return(transaction)
+	data = Data(request.json, True)
+	if(data.data == None):
+		abort(403)
+
+	espresso.add_data(data.getJson())
+	return(data.__dict__)
 
 for i in espresso.chain:
 	print("Index:", i.index)
