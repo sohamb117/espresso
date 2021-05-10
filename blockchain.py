@@ -22,7 +22,9 @@ class Blockchain(object):
 		new_block.hash = new_block.calculate_hash()
 		self.chain.append(new_block)
 		self.current_data = []
+		new_block.write_block()
 		return(new_block.__dict__)
+
 
 	def add_data(self, data):
 		self.current_data.append(data)
@@ -31,6 +33,7 @@ class Blockchain(object):
 		gen_block = Block(0, time.time(), "0")
 		gen_block.add_transaction("Genesis", "Genesis", "0", "Genesis Block")
 		gen_block.hash = gen_block.calculate_hash()
+		gen_block.write_block()
 		return(gen_block)
 
 	def last_block(self):

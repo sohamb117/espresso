@@ -7,3 +7,4 @@ liboqs-python/
 __init__.py
 oqs.py
 rand.py
+chain/
