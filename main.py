@@ -49,6 +49,13 @@ def add_transaction():
 	espresso.add_data(data.getJson())
 	return(data.__dict__)
 
+@app.route("/merge", methods=['POST']) # WIP
+def merge():
+	chain = Blockchain.gen_chain(request.json)
+	if(not chain.check_validity()):
+		return("Invalid chain")
+	return(chain.get_chain())
+
 for i in espresso.chain:
 	print("Index:", i.index)
 	print("Time:",i.timestamp)

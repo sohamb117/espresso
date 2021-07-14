@@ -1,13 +1,14 @@
 from blake3 import blake3
+from data import *
 import json
 
 class Block:
-	def __init__(self, index, timestamp, previous_hash=""):
+	def __init__(self, index, timestamp, previous_hash="", data=[], hash=""):
 		self.index = index
 		self.timestamp = timestamp
-		self.data = []
+		self.data = data
 		self.previous_hash = previous_hash
-		self.hash = ""
+		self.hash = hash
 
 	def add_transaction(self, sender, recipient, amount, memo=""):
 		self.data.append({"sender": sender, "recipient": recipient, "amount": amount, "memo": memo})

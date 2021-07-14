@@ -1,8 +1,17 @@
 import time
 from block import *
+from data import *
 import json
 
 class Blockchain(object):
+
+	def gen_chain(chain):
+		blockchain = Blockchain()
+		blockchain.chain = []
+		for i in chain["chain"]:
+			blockchain.chain.append(Block(**i));
+		return blockchain
+
 	def __init__(self):
 		self.chain = [self.genesis_block()]
 		self.current_data = []
@@ -30,7 +39,7 @@ class Blockchain(object):
 		self.current_data.append(data)
 
 	def genesis_block(self):
-		gen_block = Block(0, time.time(), "0")
+		gen_block = Block(0, time.time())
 		gen_block.add_transaction("Genesis", "Genesis", "0", "Genesis Block")
 		gen_block.hash = gen_block.calculate_hash()
 		gen_block.write_block()
