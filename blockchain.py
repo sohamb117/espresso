@@ -22,7 +22,8 @@ class Blockchain(object):
 		return Block(
 			len(self.chain),
 			time.time(),
-			self.last_block().hash if len(self.chain)>0 else 0
+			(self.last_block().hash if len(self.chain)>0 else 0),
+			data=[]
 		)
 
 	def add_snapshot(self):
