@@ -1,5 +1,5 @@
+from espresso.data import *
 from blake3 import blake3
-from data import *
 import json
 
 class Block:
@@ -26,6 +26,7 @@ class Block:
 		return(blake3(hash).hexdigest())
 
 	def write_block(self):
-		filename = "block-"+str(self.index)+".json"
+		pass
+		'''filename = "block-"+str(self.index)+".json"
 		with open("chain/"+filename, 'w') as f:
-			json.dump(self.__dict__, f, indent=2)
+			json.dump(self.__dict__, f, indent=2)'''

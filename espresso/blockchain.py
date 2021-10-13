@@ -1,7 +1,7 @@
 import time
-from block import *
-from data import *
-from snapshot import *
+from espresso.block import *
+from espresso.data import *
+from espresso.snapshot import *
 import json
 
 class Blockchain(object):

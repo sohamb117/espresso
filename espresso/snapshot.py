@@ -1,4 +1,4 @@
-from block import *
+from espresso.block import *
 import json
 
 class Snapshot(Block):

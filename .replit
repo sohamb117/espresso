@@ -1,4 +1,4 @@
 language = "python3"
-run = "python3 main.py"
+run = "export FLASK_APP=espresso; flask run --host 0.0.0.0 --port 8080"
 #language = "rust"
 #run = "cargo run"

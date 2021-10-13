@@ -1,7 +1,3 @@
-import json
-from blake3 import blake3
-
-
 class Data():
 	def __init__(self, content: dict, isTransaction: bool):
 		if(content["hash"]!=None and content["key"]!=None):

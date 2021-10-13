@@ -1,6 +1,6 @@
 poetry.lock
 pyproject.toml
-__pycache__/
+espresso/__pycache__/
 .replit
 liboqs/
 liboqs-python/
@@ -8,3 +8,4 @@ __init__.py
 oqs.py
 rand.py
 chain/
+__pycache__/
