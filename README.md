@@ -4,6 +4,7 @@ Blockchain and cryptocurrency. Work in progress and purely educational.
 ### Features
 - BLAKE3 Hashing (faster and more secure than SHA)
 - Hybrid Encryption to reduce size of hashes (WIP)
+- Layer 2 "snapshots" built in
 
 ### Goals
 

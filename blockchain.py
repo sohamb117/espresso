@@ -1,6 +1,7 @@
 import time
 from block import *
 from data import *
+from snapshot import *
 import json
 
 class Blockchain(object):
@@ -13,37 +14,45 @@ class Blockchain(object):
 		return blockchain
 
 	def __init__(self):
-		self.chain = [self.genesis_block()]
+		self.chain = []
+		self.genesis_block()
 		self.current_data = []
 	
 	def generate_block(self):
 		return Block(
 			len(self.chain),
 			time.time(),
-			self.last_block().hash
+			self.last_block().hash if len(self.chain)>0 else 0
 		)
 
-	def add_block(self, new_block=None):
-		if new_block == None:
-			new_block = self.generate_block()
-		new_block.index = len(self.chain)
-		new_block.data = self.current_data
-		new_block.hash = new_block.calculate_hash()
-		self.chain.append(new_block)
-		self.current_data = []
-		new_block.write_block()
-		return(new_block.__dict__)
+	def add_snapshot(self):
+		block = Snapshot(len(self.chain), time.time(), self.last_block().hash)
+		block.summarize(self.chain)
+		block.index = len(self.chain)
+		self.chain.append(block)
+		return(block.__dict__)
 
+
+	def add_block(self):
+		block = self.generate_block()
+		block.add_data(self.current_data)
+		print(self.current_data)
+		block.write_block()
+		self.chain.append(block)
+		self.current_data = [];
+		if(len(self.chain) > 0 and len(self.chain)%10 == 0):
+			self.add_snapshot()
+		return(block.__dict__)
+
+	def genesis_block(self):
+		block = self.generate_block()
+		block.add_transaction("Genesis", "Genesis", "0", "Genesis Block")
+		block.write_block()
+		self.chain.append(block)
+		return(block.__dict__)
 
 	def add_data(self, data):
 		self.current_data.append(data)
-
-	def genesis_block(self):
-		gen_block = Block(0, time.time())
-		gen_block.add_transaction("Genesis", "Genesis", "0", "Genesis Block")
-		gen_block.hash = gen_block.calculate_hash()
-		gen_block.write_block()
-		return(gen_block)
 
 	def last_block(self):
 		return(self.chain[-1])

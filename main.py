@@ -9,13 +9,28 @@ app = Flask("Node-"+node_uuid)
 
 espresso = Blockchain();
 
-#espresso.add_block(espresso.generate_block())
-#espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
-#espresso.add_data('{"sender":"soham", "recipient": "soham", "amount": "0", "memo": "testing"}')
-#espresso.add_block(espresso.generate_block())
-#espresso.add_block(espresso.generate_block())
-#espresso.add_block(espresso.generate_block())
-#espresso.add_block(espresso.generate_block())
+''' espresso.add_block()
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_block()
+espresso.add_block()
+espresso.add_block()
+espresso.add_block()
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_block()
+espresso.add_block()
+espresso.add_block()
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_block()
+espresso.add_block()
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_data({"sender":"soham", "recipient": "soham", "amount": "10", "memo": "testing"})
+espresso.add_block()
+espresso.add_block()
+espresso.add_block() '''
 
 @app.route("/mine", methods=["GET"])
 def mine():
@@ -62,6 +77,7 @@ for i in espresso.chain:
 	print("Data:", str(i.data))
 	print("Previous Hash:",i.previous_hash)
 	print("Hash:",i.hash)
+	print("isSnapshot:",i.isSnapshot)
 	print()
 
 print(espresso.check_validity())
